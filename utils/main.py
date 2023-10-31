@@ -3,12 +3,22 @@ from datetime import datetime
 
 
 def read_json(path):
+    """
+    Функция считывания json файла по указанному пути
+    :param path: Путь к файлу с расширением json
+    :return: list
+    """
     file = open(path, 'r', encoding='utf-8')
     operations = json.load(file)
     return operations
 
 
 def get_mask_card(account: str):
+    """
+    Функция маскировки банковского счета
+    :param account: номер банковской карты
+    :return: замаскированный номер банковской карты
+    """
     account = account.replace(account[6:12], '******')
     numbers = [account[:4], account[4:8], account[8:12], account[12:16]]
     account = ' '.join(numbers)
@@ -16,6 +26,11 @@ def get_mask_card(account: str):
 
 
 def get_mask_account(bank_account: str):
+    """
+    Функция маскировки банковского счета
+    :param bank_account: Строка банковский счет
+    :return: закрытй банковский счет
+    """
     len_account = len(bank_account)
     bank_account_mask = bank_account.replace(bank_account[:len_account-4], '**')
     return bank_account_mask
@@ -87,5 +102,11 @@ def list_operations(ex_operations: list):
 
 
 def print_list(ex_op_list):
+    """
+    Функция форматированного вывода
+    :param ex_op_list:Отобранный список выполненных операций
+    :return: вывод на экран переданного списка
+    """
     for ex_op in ex_op_list:
-        print(f'{ex_op["date"]} {ex_op["description"]}\n{ex_op["from"]}->{ex_op["to"]}\n{ex_op["amount"]} {ex_op["currency"]}\n')
+        print(f'{ex_op["date"]} {ex_op["description"]}')
+        print(f'{ex_op["from"]}->{ex_op["to"]}\n{ex_op["amount"]} {ex_op["currency"]}\n')
