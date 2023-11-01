@@ -15,7 +15,7 @@ def read_json(path):
 
 def get_mask_card(account: str):
     """
-    Функция маскировки банковского счета
+    Функция маскировки номера карты 7305799447374042->7305 79** **** 4042
     :param account: номер банковской карты
     :return: замаскированный номер банковской карты
     """
@@ -27,7 +27,7 @@ def get_mask_card(account: str):
 
 def get_mask_account(bank_account: str):
     """
-    Функция маскировки банковского счета
+    Функция маскировки банковского счета 96231448929365202391->**2391
     :param bank_account: Строка банковский счет
     :return: закрытй банковский счет
     """
@@ -101,12 +101,15 @@ def list_operations(ex_operations: list):
     return operations_list
 
 
-def print_list(ex_op_list):
+def print_list():
     """
     Функция форматированного вывода
-    :param ex_op_list:Отобранный список выполненных операций
     :return: вывод на экран переданного списка
     """
+    path = '../operations.json'
+    operations = read_json(path)
+    ex_operations = get_executed_operations(operations)
+    ex_op_list = list_operations(ex_operations)
     for ex_op in ex_op_list:
         print(f'{ex_op["date"]} {ex_op["description"]}')
         print(f'{ex_op["from"]}->{ex_op["to"]}\n{ex_op["amount"]} {ex_op["currency"]}\n')
